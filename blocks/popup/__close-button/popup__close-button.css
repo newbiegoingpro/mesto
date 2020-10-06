@@ -1,0 +1,24 @@
+.popup__close-button{
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    margin-left: 430px;
+    margin-top: -40px;
+    border: 0;
+    background: none;
+    z-index: -1;
+    outline: 0;
+}
+.popup__close-button-image{
+    z-index: 1;
+    height: 40px;
+    width: 40px;
+    transform: rotate(45deg);
+}
+@media screen and (max-width: 510px){
+    .popup__close-button{
+        height: 35px;
+        width: 35px;
+        margin-left: calc(90%);
+    }
+}

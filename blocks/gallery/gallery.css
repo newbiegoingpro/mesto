@@ -1,0 +1,27 @@
+@import url(./__item/gallery__item.css);
+@import url(./__pic/gallery__pic.css);
+@import url(./__like-button/gallery__like-button.css);
+@import url(./__text-container/gallery__text-container.css);
+@import url(./__text/gallery__text.css);
+.gallery{
+
+    width: 100%;
+    margin-top: 47.25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 18px;
+    row-gap: 21px;
+    justify-content: center;
+}
+
+
+
+
+
+@media screen and(max-width: 881px){
+    .gallery{
+        width: 94%;
+    }
+}
+
