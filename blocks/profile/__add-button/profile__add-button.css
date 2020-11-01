@@ -8,5 +8,17 @@
     background: black;
     align-self: center;
     margin-left: auto;
-    box-sizing: border-box;
+    
+
 }
+.profile__add-button:hover{
+    opacity: .5;
+    cursor: pointer;
+}
+@media screen and (max-width: 768px){
+    
+    .profile__add-button{
+        margin: 0;
+        min-width: 90%;
+        margin-top: 36px;
+    }}

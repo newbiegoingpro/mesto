@@ -1,5 +1,6 @@
 .gallery__item{
-    min-height: 361px;
+    margin: 0 auto;
+    margin-top: 21px;
     max-width: 282px;
     background-color: white;
     border-radius: 10px;

@@ -1,0 +1,6 @@
+.popup__close-button-image{
+    z-index: 1;
+    height: 40px;
+    width: 40px;
+    transform: rotate(45deg);
+}

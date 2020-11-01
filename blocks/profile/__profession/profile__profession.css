@@ -12,4 +12,13 @@
     color: white;
     min-width: 295px;
 }
+@media screen and (max-width: 768px){
+   
+    .profile__profession{
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        width: 99.29078014184397%;
+    }
+}
 

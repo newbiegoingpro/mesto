@@ -1,6 +1,9 @@
 .profile__info-container{
     display: flex;
     align-self: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 @media screen and (max-width: 768px){
     .profile__info-container{
