@@ -12,7 +12,21 @@ let popupAddButton = document.querySelector('.popup-add__save-button');
 
 let template = document.querySelector('.template');
 
+const gallery = document.querySelector('.gallery');
 
+const galleryItem = gallery.querySelector('.gallery__item');
+
+const closeupPopupCloseBtn = document.querySelector('.closeupPopup__close-button');
+
+const closeupPopupTxt = document.querySelector('.closeupPopup__text')
+
+function popupToggle(){ 
+    
+    if (popup.classList.contains('popup_opened')){
+    popupName.value = name.textContent
+    popupProfession.value = profession.textContent
+}
+};
 
 const initialCards = [
     {
@@ -41,66 +55,85 @@ const initialCards = [
     }
 ];
 
-//console.log(initialCards)
-
-const gallery = document.querySelector('.gallery');
-
-
-
-
-
 const getCard = function(data) {
-    
-   // console.log(data)
     let cardItem = template.content.cloneNode(true);
+    
     console.log(cardItem);
     cardItem.querySelector('.gallery__pic').src = data.link;
     cardItem.querySelector('.gallery__text').innerText = data.name;    
     return cardItem;
-    
-    
   };
 
 function render() {
     const cardsInitial = initialCards.map((element) =>
         getCard(element)
-     
         );
-    
-        gallery.append(...cardsInitial)
-        
+        gallery.append(...cardsInitial)    
     };
 
-function popupAddToggle(){
-    addPopup.classList.toggle('popup_opened');
+render();
 
-}
-
-
+getCard(render);
 
 const bindTest = () => {
     const item = getCard( {
     name: popupAddPlace.value,
     link: popupAddLink.value
 })
-popupAddToggle()
-gallery.prepend(item)
-console.log(item)
+popupToggleHandler(addPopup);
+
+gallery.prepend(item);
+popupAddPlace.value = '';
+popupAddLink.value = '';
+};
+
+popupAddButton.addEventListener('click', bindTest);
+
+addButton.addEventListener('click', () => {
+    popupToggleHandler(addPopup)
+});
+
+addPopupClose.addEventListener('click', () => {
+    popupToggleHandler(addPopup)
+});
+
+let closeupPopupPic = document.querySelector('.closeupPopup__pic');
+
+const closeupPopup = document.querySelector('.closeupPopup');
+
+gallery.addEventListener('click', (evt) => {         
+            if(evt.target.classList.contains('gallery__like-button')){
+             evt.target.classList.toggle('gallery__like-button_active');       
+            }
+        })
+
+gallery.addEventListener('click', (evt) => {
+    
+    if(evt.target.classList.contains('gallery__delete-button-pic')){
+        console.log(evt.target)
+        evt.target.closest('.gallery__item').remove();
+    }
+    else if(evt.target.classList.contains('gallery__pic')){
+            
+            popupToggleHandler(closeupPopup);
+            closeupPopupPic.src = evt.target.closest('.gallery__pic').src
+            closeupPopupTxt.textContent = evt.target.closest('.gallery__item').textContent
+        
+    }
+})
+
+
+closeupPopupCloseBtn.addEventListener('click', () => {
+    popupToggleHandler(closeupPopup)
+})
 
 
 
-}
-
-popupAddButton.addEventListener('click', bindTest)
+         
 
 
 
 
 
-addButton.addEventListener('click', popupAddToggle);
 
-addPopupClose.addEventListener('click', popupAddToggle);
 
-render();
-
-getCard(render);

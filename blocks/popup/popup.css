@@ -5,12 +5,15 @@
 @import url(./__heading/popup__heading.css);
 @import url(./__close-button/popup__close-button.css);
 @import url(./__close-button-image/popup__close-button-image.css);
+@import url(./_opened/popup_opened.css);
 .popup{
     position: fixed;
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s linear;
     width: 100vw;
     height: 100vh;
 }

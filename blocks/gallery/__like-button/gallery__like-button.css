@@ -16,6 +16,4 @@
     cursor: pointer;
     opacity: .5;
 }
-.gallery__like-button:focus{
-    background-image: url(../../../images/likeActive.svg);
-}
+

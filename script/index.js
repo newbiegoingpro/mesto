@@ -17,12 +17,14 @@ let name = profile.querySelector('.profile__name');
 let profession = profile.querySelector('.profile__profession');
 
 
-
+const popupToggleHandler = (arg) => {
+    arg.classList.toggle('popup_opened')
+}
 
 
 
 function popupToggle(){ 
-    popup.classList.toggle('popup_opened');
+    popupToggleHandler(popup);
     if (popup.classList.contains('popup_opened')){
     popupName.value = name.textContent
     popupProfession.value = profession.textContent
@@ -37,7 +39,11 @@ function popupSaved(evt){
     popupToggle()
 };
 
-popupOpenButton.addEventListener('click', popupToggle);
+profile.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('profile__edit-button-pic')){
+        popupToggle();
+    }
+});
 
 popupCloseButton.addEventListener('click', popupToggle);
 
