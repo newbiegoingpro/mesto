@@ -1,20 +1,20 @@
-let profile = document.querySelector('.profile');
+const profile = document.querySelector('.profile');
 
-let popupOpenButton = profile.querySelector('.profile__edit-button');
+const popupOpenButton = profile.querySelector('.profile__edit-button');
 
-let popup = document.querySelector('.popup');
+const popup = document.querySelector('.popup');
 
-let popupCloseButton = popup.querySelector('.popup__close-button');
+const popupCloseButton = popup.querySelector('.popup__close-button');
 
-let popupName = popup.querySelector('.popup__input_name');
+const popupName = popup.querySelector('.popup__input_name');
 
-let popupProfession = popup.querySelector('.popup__input_profession');
+const popupProfession = popup.querySelector('.popup__input_profession');
 
-let popupSaveButton = popup.querySelector('.popup__save-button');
+const popupSaveButton = popup.querySelector('.popup__save-button');
 
-let name = profile.querySelector('.profile__name');
+const name = profile.querySelector('.profile__name');
 
-let profession = profile.querySelector('.profile__profession');
+const profession = profile.querySelector('.profile__profession');
 
 
 const popupToggleHandler = (arg) => {

@@ -1,16 +1,16 @@
-let addButton = document.querySelector('.profile__add-button');
+const addButton = document.querySelector('.profile__add-button');
 
-let addPopup = document.querySelector('.popup-add');
+const addPopup = document.querySelector('.popup-add');
 
-let addPopupClose = document.querySelector('.popup-add__close-button');
+const addPopupClose = document.querySelector('.popup-add__close-button');
 
-let popupAddPlace = document.querySelector('.popup__input_place');
+const popupAddPlace = document.querySelector('.popup__input_place');
 
-let popupAddLink = document.querySelector('.popup__input_link');
+const popupAddLink = document.querySelector('.popup__input_link');
 
-let popupAddButton = document.querySelector('.popup-add__save-button');
+const popupAddButton = document.querySelector('.popup-add__save-button');
 
-let template = document.querySelector('.template');
+const template = document.querySelector('.template');
 
 const gallery = document.querySelector('.gallery');
 
@@ -97,7 +97,7 @@ addPopupClose.addEventListener('click', () => {
     popupToggleHandler(addPopup)
 });
 
-let closeupPopupPic = document.querySelector('.closeupPopup__pic');
+const closeupPopupPic = document.querySelector('.closeupPopup__pic');
 
 const closeupPopup = document.querySelector('.closeupPopup');
 
