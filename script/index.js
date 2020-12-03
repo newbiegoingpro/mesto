@@ -51,17 +51,6 @@ const popupToggleHandler = (arg) => {
     arg.classList.toggle('popup_opened')
 }
 
-function editPopupToggle(){ 
-    popupToggleHandler(popup);   
-};
-
-function popupSaved(evt){   
-    evt.preventDefault();
-    name.textContent = popupName.value; 
-    profession.textContent = popupProfession.value; 
-    editPopupToggle()
-};
-
 const getCard = function(data) {
     const cardItem = template.content.cloneNode(true);   
     cardItem.querySelector('.gallery__pic').src = data.link;
@@ -108,15 +97,22 @@ popupAddLink.value = '';
 
 profile.addEventListener('click', (evt) => {
     if(evt.target.classList.contains('profile__edit-button-pic') || evt.target.classList.contains('profile__edit-button')){
-        editPopupToggle();
+        popupToggleHandler(popup);
         popupName.value = name.textContent;
         popupProfession.value = profession.textContent;
     }
 });
 
-popupCloseButton.addEventListener('click', editPopupToggle);
+popupCloseButton.addEventListener('click', () => {
+    popupToggleHandler(popup);
+});
 
-popup.addEventListener('submit', popupSaved);
+popup.addEventListener('submit', (evt) => {
+evt.preventDefault();
+popupToggleHandler(popup);
+name.textContent = popupName.value;
+profession.textContent = popupProfession.value;
+});
 
 popupAddButton.addEventListener('click', bindTest);
 
@@ -127,8 +123,6 @@ addButton.addEventListener('click', () => {
 addPopupClose.addEventListener('click', () => {
     popupToggleHandler(addPopup)
 });
-
-
 
 closeupPopupCloseBtn.addEventListener('click', () => {
     popupToggleHandler(closeupPopup)
