@@ -55,22 +55,16 @@ const getCard = function(data) {
     const cardItem = template.content.cloneNode(true);   
     cardItem.querySelector('.gallery__pic').src = data.link;
     cardItem.querySelector('.gallery__text').innerText = data.name;
-    cardItem.querySelector('.gallery__like-button').addEventListener('click', (evt) => {         
-        if(evt.target.classList.contains('gallery__like-button')){
+    cardItem.querySelector('.gallery__like-button').addEventListener('click', (evt) => {            
          evt.target.classList.toggle('gallery__like-button_active');       
-        }
     })
-    cardItem.querySelector('.gallery__delete-button-pic').addEventListener('click', (evt) => {
-        if(evt.target.classList.contains('gallery__delete-button-pic')){        
-         evt.target.closest('.gallery__item').remove();
-        }
+    cardItem.querySelector('.gallery__delete-button-pic').addEventListener('click', (evt) => {       
+         evt.target.closest('.gallery__item').remove();  
     })
-    cardItem.querySelector('.gallery__pic').addEventListener('click', (evt) => {
-        if(evt.target.classList.contains('gallery__pic')){        
+    cardItem.querySelector('.gallery__pic').addEventListener('click', (evt) => {      
          popupToggleHandler(closeupPopup);
          closeupPopupPic.src = evt.target.closest('.gallery__pic').src
          closeupPopupTxt.textContent = evt.target.closest('.gallery__item').textContent    
-    }   
     })
     return cardItem;
   };
@@ -84,7 +78,7 @@ function render() {
 
 render();
 
-const bindTest = () => {
+const bindTest = () => {    
     const item = getCard( {
     name: popupAddPlace.value,
     link: popupAddLink.value
@@ -96,7 +90,7 @@ popupAddLink.value = '';
 };
 
 profile.addEventListener('click', (evt) => {
-    if(evt.target.classList.contains('profile__edit-button-pic') || evt.target.classList.contains('profile__edit-button')){
+    if(evt.target.classList.contains('profile__edit-button')){
         popupToggleHandler(popup);
         popupName.value = name.textContent;
         popupProfession.value = profession.textContent;
@@ -114,7 +108,10 @@ name.textContent = popupName.value;
 profession.textContent = popupProfession.value;
 });
 
-popupAddButton.addEventListener('click', bindTest);
+addPopup.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    bindTest();
+});
 
 addButton.addEventListener('click', () => {
     popupToggleHandler(addPopup)

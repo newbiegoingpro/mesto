@@ -1,12 +1,11 @@
 @import url(./__edit-button/profile__edit-button.css);
-@import url(./__edit-button-pic/profile__edit-button-pic.css);
 @import url(./__avatar/profile__avatar.css);
 @import url(./__info-container/profile__info-container.css);
 @import url(./__info/profile__info.css);
 @import url(./__name/profile__name.css);
 @import url(./__profession/profile__profession.css);
 @import url(./__add-button/profile__add-button.css);
-@import url(./__add-button-pic/profile__add-button-pic.css);
+
 .profile{
 
     margin-top: 36.25px;

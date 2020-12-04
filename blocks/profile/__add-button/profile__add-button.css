@@ -8,7 +8,9 @@
     background: black;
     align-self: center;
     margin-left: auto;
-    
+    background-image: url(../../../images/add-button.svg);
+    background-repeat: no-repeat;
+    background-position: center;
 
 }
 .profile__add-button:hover{
