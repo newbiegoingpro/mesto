@@ -1,6 +1,6 @@
 const profile = document.querySelector('.profile');
 const popupOpenButton = profile.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
+const popup = document.querySelector('.popup-edit');
 const popupCloseButton = popup.querySelector('.popup__close-button');
 const popupName = popup.querySelector('.popup__input_name');
 const popupProfession = popup.querySelector('.popup__input_profession');
@@ -19,7 +19,7 @@ const galleryItem = gallery.querySelector('.gallery__item');
 const closeupPopupCloseBtn = document.querySelector('.closeupPopup__close-button');
 const closeupPopupTxt = document.querySelector('.closeupPopup__text')
 const closeupPopupPic = document.querySelector('.closeupPopup__pic');
-const closeupPopup = document.querySelector('.closeupPopup');
+const closeupPopup = document.querySelector('.closeup-Popup');
 const initialCards = [
     {
         name: 'Архыз',
@@ -89,23 +89,22 @@ popupAddPlace.value = '';
 popupAddLink.value = '';
 };
 
-profile.addEventListener('click', (evt) => {
+document.addEventListener('click', (evt) => {
     if(evt.target.classList.contains('profile__edit-button')){
         popupToggleHandler(popup);
         popupName.value = name.textContent;
         popupProfession.value = profession.textContent;
     }
-});
-
-popupCloseButton.addEventListener('click', () => {
-    popupToggleHandler(popup);
+    else if(evt.target.classList.contains('profile__add-button')){
+        popupToggleHandler(addPopup);
+    }
 });
 
 popup.addEventListener('submit', (evt) => {
-evt.preventDefault();
-popupToggleHandler(popup);
-name.textContent = popupName.value;
-profession.textContent = popupProfession.value;
+    evt.preventDefault();
+    popupToggleHandler(popup);
+    name.textContent = popupName.value;
+    profession.textContent = popupProfession.value;
 });
 
 addPopup.addEventListener('submit', (evt) => {
@@ -113,15 +112,35 @@ addPopup.addEventListener('submit', (evt) => {
     bindTest();
 });
 
-addButton.addEventListener('click', () => {
-    popupToggleHandler(addPopup)
-});
+document.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('popup_opened')){
+        popupToggleHandler(evt.target);
+        }
+    else if(evt.target.classList.contains('popup__close-button-image')){
+        popupToggleHandler(evt.target.closest('.popup'))
+    }
+    })
 
-addPopupClose.addEventListener('click', () => {
-    popupToggleHandler(addPopup)
-});
-
-closeupPopupCloseBtn.addEventListener('click', () => {
-    popupToggleHandler(closeupPopup)
+popupName.addEventListener('keydown', (evt) => {
+    if((evt.key) === 'Escape'){  
+        popupToggleHandler(popup)
+    }
 })
 
+popupProfession.addEventListener('keydown', (evt) => {
+    if((evt.key) === 'Escape'){
+        popupToggleHandler(popup)
+}
+})
+
+popupAddLink.addEventListener('keydown', (evt) => {
+    if((evt.key) === 'Escape'){  
+        popupToggleHandler(addPopup)
+    }
+})
+
+popupAddPlace.addEventListener('keydown', (evt) => {
+    if((evt.key) === 'Escape'){
+        popupToggleHandler(addPopup)
+}
+})

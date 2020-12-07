@@ -39,7 +39,7 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   
-  <form class="popup" name="form-Edit">
+  <form class="popup popup-edit" name="form-Edit">
     <div class="popup__container">
       <button type="button" class="popup__close-button">
         <img class="popup__close-button-image" src="./images/add-button.svg" alt="Крестик">
@@ -47,10 +47,10 @@
       <h2 class="popup__heading">
         Редактировать профиль
       </h2>
-      <input type="text" name="name-Input" placeholder="Имя" value="" class="popup__input popup__input_name">
+      <input type="text" name="name-Input" placeholder="Имя" value="" class="popup__input popup__input_name" required minlength="2" maxlength="40">
 
 
-      <input type="text" name="profession-Input" placeholder="Работа" value="" class="popup__input popup__input_profession">
+      <input type="text" name="profession-Input" placeholder="Работа" value="" class="popup__input popup__input_profession" required minlength="2" maxlength="200">
 
       
       <button type="submit" value="Сохранить" class="popup__save-button">
@@ -67,15 +67,15 @@
       <h2 class="popup__heading">
         Новое Место
       </h2>
-      <input type="text" name="place-Input" placeholder="Название" value="" class="popup__input popup__input_place">
-      <input type="text" name="link-Input" placeholder="Ссылка на картинку" value="" class="popup__input popup__input_link">
+      <input type="text" name="place-Input" placeholder="Название" value="" class="popup__input popup__input_place" required minlength="2" maxlength="30">
+      <input type="url" name="link-Input" placeholder="Ссылка на картинку" value="" class="popup__input popup__input_link" required> 
       <button type="submit" value="Сохранить" class="popup__save-button popup-add__save-button">
         Сохранить
       </button>
     </div>
   </form>
 
-  <div class='popup closeupPopup'>
+  <div class='popup closeup-Popup'>
     <div class='closeupPopup__container'>
       <button class='popup__close-button closeupPopup__close-button' type="button">
        <img class="popup__close-button-image" src="./images/add-button.svg" alt="Крестик">
@@ -102,7 +102,7 @@
   </template>
 
   <script src="./script/index.js" defer></script>
-
+  <script src="./script/validate.js" defer></script>
 </body>
 
 </html>
