@@ -1,7 +1,7 @@
 .popup__container{
     width: 430px;
     background-color: white;
-    
+    height: 330px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -12,7 +12,7 @@
     border-radius: 10px;
     align-items: baseline;
     z-index: 20;
-    
+    justify-content: space-around;
 }
 
 @media screen and (max-width: 510px){
