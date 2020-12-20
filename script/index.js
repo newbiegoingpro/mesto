@@ -53,11 +53,11 @@ const initialCards = [
 const popupEscapeHandler = (evt) => {
     if(evt.key === 'Escape'){
         const openedPopup = document.querySelector('.popup_opened');
-        popupToggle(openedPopup);
+        togglePopup(openedPopup);
     }
 }
 
-const popupToggle = (popup) => {
+const togglePopup = (popup) => {
     popup.classList.toggle('popup_opened')
     if(popup.classList.contains('popup_opened')){
         popup.addEventListener('keydown', popupEscapeHandler)
@@ -79,7 +79,7 @@ const getCard = function(data) {
          evt.target.closest('.gallery__item').remove();  
     })
     cardImage.addEventListener('click', (evt) => {      
-         popupToggle(closeupPopup);
+         togglePopup(closeupPopup);
          closeupPopupPic.src = evt.target.closest('.gallery__pic').src;
          closeupPopupTxt.textContent = evt.target.closest('.gallery__item').textContent    
     })
@@ -100,7 +100,7 @@ const addCard = () => {
     name: popupAddPlace.value,
     link: popupAddLink.value
 })
-popupToggle(addPopup);
+togglePopup(addPopup);
 gallery.prepend(item);
 popupAddPlace.value = '';
 popupAddLink.value = '';
@@ -119,42 +119,40 @@ popupOpenButton.addEventListener('click', () => {
     popupName.value = name.textContent;
     popupProfession.value = profession.textContent;
     toggleButtonState(popupSaveButton, popupEdit.checkValidity(), validityConfig);
-    popupToggle(popupEdit);
+    togglePopup(popupEdit);
     spanEraser(popupEdit);
     });
  
 addPopupOpenButton.addEventListener('click', () => {   
-    popupToggle(addPopup);
+    togglePopup(addPopup);
     toggleButtonState(popupAddSaveButton, addPopup.checkValidity(), validityConfig);
     spanEraser(addPopup);
 });
 
 popupEdit.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    popupToggle(popupEdit);
+    togglePopup(popupEdit);
     name.textContent = popupName.value;
     profession.textContent = popupProfession.value;
 });
 
 popupEdit.addEventListener('click', (evt) => {
     if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
-        popupToggle(popupEdit);
-        popupName.removeEventListener('keydown', popupEscapeHandler);
-        popupProfession.removeEventListener('keydown', popupEscapeHandler);
+        togglePopup(popupEdit);
         popupEdit.reset();
         }
     })
 
 addPopup.addEventListener('click', (evt) => {
     if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
-        popupToggle(addPopup);
+        togglePopup(addPopup);
         addPopup.reset();
             }
         })
 
 closeupPopup.addEventListener('click', (evt) => {
     if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
-        popupToggle(closeupPopup);
+        togglePopup(closeupPopup);
             }
         })
         
