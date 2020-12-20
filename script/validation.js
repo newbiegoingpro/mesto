@@ -16,11 +16,9 @@ const toggleButtonState = (buttonElement, boolean, config) => {
     if(boolean){
         buttonElement.classList.remove(config.inactiveButtonClass);
         buttonElement.disabled = false;
-        console.log('doesNotHaveInvaldInput')
     } else {
         buttonElement.classList.add(config.inactiveButtonClass);
         buttonElement.disabled = 'disabled';
-        console.log('hasInvaldInput')
     }
 }
 

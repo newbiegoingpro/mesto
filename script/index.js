@@ -1,14 +1,15 @@
 const profile = document.querySelector('.profile');
 const popupOpenButton = profile.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup-edit');
-const popupCloseButton = popup.querySelector('.popup__close-button');
-const popupName = popup.querySelector('.popup__input_name');
-const popupProfession = popup.querySelector('.popup__input_profession');
-const popupSaveButton = popup.querySelector('.popup__save-button');
+const popupEdit = document.querySelector('.popup-edit');
+const popupCloseButton = popupEdit.querySelector('.popup__close-button');
+const popupName = popupEdit.querySelector('.popup__input_name');
+const popupProfession = popupEdit.querySelector('.popup__input_profession');
+const popupSaveButton = popupEdit.querySelector('.popup__save-button');
 const name = profile.querySelector('.profile__name');
 const profession = profile.querySelector('.profile__profession');
 const addButton = document.querySelector('.profile__add-button');
 const addPopup = document.querySelector('.popup-add');
+const addPopupOpenButton = document.querySelector('.profile__add-button');
 const addPopupClose = document.querySelector('.popup-add__close-button');
 const popupAddPlace = document.querySelector('.popup__input_place');
 const popupAddLink = document.querySelector('.popup__input_link');
@@ -49,21 +50,27 @@ const initialCards = [
     }
 ];
 
-const popupToggleHandler = (arg) => {
-    arg.classList.toggle('popup_opened')
-}
-
 const popupEscapeHandler = (evt) => {
     if(evt.key === 'Escape'){
-        document.querySelector('.popup').classList.remove('popup_opened');
-        document.querySelector('.popup-add').classList.remove('popup_opened');
-        document.querySelector('.closeupPopup').classList.remove('popup_opened');
+        const openedPopup = document.querySelector('.popup_opened');
+        popupToggle(openedPopup);
     }
 }
-      
+
+const popupToggle = (popup) => {
+    popup.classList.toggle('popup_opened')
+    if(popup.classList.contains('popup_opened')){
+        popup.addEventListener('keydown', popupEscapeHandler)
+    }   else {
+        popup.removeEventListener('keydown', popupEscapeHandler)
+    }
+}
+
 const getCard = function(data) {
-    const cardItem = template.content.cloneNode(true);   
-    cardItem.querySelector('.gallery__pic').src = data.link;
+    const cardItem = template.content.cloneNode(true);
+    const cardImage = cardItem.querySelector('.gallery__pic');   
+    cardImage.src = data.link;
+    cardImage.alt = data.name;
     cardItem.querySelector('.gallery__text').innerText = data.name;
     cardItem.querySelector('.gallery__like-button').addEventListener('click', (evt) => {            
          evt.target.classList.toggle('gallery__like-button_active');       
@@ -71,10 +78,9 @@ const getCard = function(data) {
     cardItem.querySelector('.gallery__delete-button-pic').addEventListener('click', (evt) => {       
          evt.target.closest('.gallery__item').remove();  
     })
-    cardItem.querySelector('.gallery__pic').addEventListener('click', (evt) => {      
-         popupToggleHandler(closeupPopup);
-         closeupPopup.addEventListener('keydown', popupEscapeHandler);
-         closeupPopupPic.src = evt.target.closest('.gallery__pic').src
+    cardImage.addEventListener('click', (evt) => {      
+         popupToggle(closeupPopup);
+         closeupPopupPic.src = evt.target.closest('.gallery__pic').src;
          closeupPopupTxt.textContent = evt.target.closest('.gallery__item').textContent    
     })
     return cardItem;
@@ -89,12 +95,12 @@ function render() {
 
 render();
 
-const bindTest = () => {    
+const addCard = () => {    
     const item = getCard( {
     name: popupAddPlace.value,
     link: popupAddLink.value
 })
-popupToggleHandler(addPopup);
+popupToggle(addPopup);
 gallery.prepend(item);
 popupAddPlace.value = '';
 popupAddLink.value = '';
@@ -109,57 +115,52 @@ const spanEraser = (form) => {
     formInputs[1].classList.remove('popup__input_state-invalid');
 } 
 
-document.addEventListener('click', (evt) => {
-    if(evt.target.classList.contains('profile__edit-button')){
-        popupName.value = name.textContent;
-        popupProfession.value = profession.textContent;
-        toggleButtonState(popupSaveButton, popup.checkValidity(), validityConfig);
-        popupToggleHandler(popup);
-        popup.addEventListener('keydown', popupEscapeHandler);
-        spanEraser(popup)
-    }
-    else if(evt.target.classList.contains('profile__add-button')){
-        popupToggleHandler(addPopup);
-        toggleButtonState(popupAddSaveButton, addPopup.checkValidity(), validityConfig);
-        addPopup.addEventListener('keydown', popupEscapeHandler);
-    }
+popupOpenButton.addEventListener('click', () => {
+    popupName.value = name.textContent;
+    popupProfession.value = profession.textContent;
+    toggleButtonState(popupSaveButton, popupEdit.checkValidity(), validityConfig);
+    popupToggle(popupEdit);
+    });
+ 
+addPopupOpenButton.addEventListener('click', () => {   
+    popupToggle(addPopup);
+    toggleButtonState(popupAddSaveButton, addPopup.checkValidity(), validityConfig);
 });
 
-popup.addEventListener('submit', (evt) => {
+popupEdit.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    popupToggleHandler(popup);
+    popupToggle(popupEdit);
     name.textContent = popupName.value;
     profession.textContent = popupProfession.value;
-    
 });
 
-popup.addEventListener('click', (evt) => {
+popupEdit.addEventListener('click', (evt) => {
     if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
-        popupToggleHandler(popup);
+        popupToggle(popupEdit);
         popupName.removeEventListener('keydown', popupEscapeHandler);
         popupProfession.removeEventListener('keydown', popupEscapeHandler);
-        spanEraser(popup);
-        popup.reset();
+        spanEraser(popupEdit);
+        popupEdit.reset();
         }
     })
 
 addPopup.addEventListener('click', (evt) => {
     if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
-        popupToggleHandler(addPopup);
+        popupToggle(addPopup);
         spanEraser(addPopup);
         addPopup.reset();
             }
         })
 
 closeupPopup.addEventListener('click', (evt) => {
-        if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
-            popupToggleHandler(closeupPopup);
+    if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
+        popupToggle(closeupPopup);
             }
         })
         
 addPopup.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    bindTest();
+    addCard();
 });
 
 
