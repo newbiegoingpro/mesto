@@ -60,9 +60,9 @@ const popupEscapeHandler = (evt) => {
 const togglePopup = (popup) => {
     popup.classList.toggle('popup_opened')
     if(popup.classList.contains('popup_opened')){
-        popup.addEventListener('keydown', popupEscapeHandler)
+        document.addEventListener('keydown', popupEscapeHandler)
     }   else {
-        popup.removeEventListener('keydown', popupEscapeHandler)
+        document.removeEventListener('keydown', popupEscapeHandler)
     }
 }
 
