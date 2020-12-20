@@ -103,26 +103,24 @@ popupAddLink.value = '';
 const spanEraser = (form) => {
     const formSpans = form.getElementsByTagName('span');
     const formInputs = form.getElementsByTagName('input');
-    console.log(formSpans)
     formSpans[0].textContent = '';
     formSpans[1].textContent = '';
     formInputs[0].classList.remove('popup__input_state-invalid');
     formInputs[1].classList.remove('popup__input_state-invalid');
 } 
 
-
 document.addEventListener('click', (evt) => {
     if(evt.target.classList.contains('profile__edit-button')){
         popupName.value = name.textContent;
         popupProfession.value = profession.textContent;
-        toggleButtonState(popupSaveButton, popup.checkValidity());
+        toggleButtonState(popupSaveButton, popup.checkValidity(), validityConfig);
         popupToggleHandler(popup);
         popup.addEventListener('keydown', popupEscapeHandler);
         spanEraser(popup)
     }
     else if(evt.target.classList.contains('profile__add-button')){
         popupToggleHandler(addPopup);
-        toggleButtonState(popupAddSaveButton, addPopup.checkValidity());
+        toggleButtonState(popupAddSaveButton, addPopup.checkValidity(), validityConfig);
         addPopup.addEventListener('keydown', popupEscapeHandler);
     }
 });
@@ -148,8 +146,8 @@ popup.addEventListener('click', (evt) => {
 addPopup.addEventListener('click', (evt) => {
     if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
         popupToggleHandler(addPopup);
-        addPopup.reset();
         spanEraser(addPopup);
+        addPopup.reset();
             }
         })
 
