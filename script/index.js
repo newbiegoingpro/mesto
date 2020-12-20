@@ -120,11 +120,13 @@ popupOpenButton.addEventListener('click', () => {
     popupProfession.value = profession.textContent;
     toggleButtonState(popupSaveButton, popupEdit.checkValidity(), validityConfig);
     popupToggle(popupEdit);
+    spanEraser(popupEdit);
     });
  
 addPopupOpenButton.addEventListener('click', () => {   
     popupToggle(addPopup);
     toggleButtonState(popupAddSaveButton, addPopup.checkValidity(), validityConfig);
+    spanEraser(addPopup);
 });
 
 popupEdit.addEventListener('submit', (evt) => {
@@ -139,7 +141,6 @@ popupEdit.addEventListener('click', (evt) => {
         popupToggle(popupEdit);
         popupName.removeEventListener('keydown', popupEscapeHandler);
         popupProfession.removeEventListener('keydown', popupEscapeHandler);
-        spanEraser(popupEdit);
         popupEdit.reset();
         }
     })
@@ -147,7 +148,6 @@ popupEdit.addEventListener('click', (evt) => {
 addPopup.addEventListener('click', (evt) => {
     if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
         popupToggle(addPopup);
-        spanEraser(addPopup);
         addPopup.reset();
             }
         })
