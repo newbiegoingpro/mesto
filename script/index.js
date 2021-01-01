@@ -1,3 +1,6 @@
+import {Validator} from './FormValidator.js';
+import {Card} from './Card.js';
+
 const profile = document.querySelector('.profile');
 const popupOpenButton = profile.querySelector('.profile__edit-button');
 const popupEdit = document.querySelector('.popup-edit');
@@ -8,22 +11,22 @@ const popupSaveButton = popupEdit.querySelector('.popup__save-button');
 const name = profile.querySelector('.profile__name');
 const profession = profile.querySelector('.profile__profession');
 const addButton = document.querySelector('.profile__add-button');
-const addPopup = document.querySelector('.popup-add');
+export const addPopup = document.querySelector('.popup-add');
 const addPopupOpenButton = document.querySelector('.profile__add-button');
 const addPopupClose = document.querySelector('.popup-add__close-button');
-const popupAddPlace = document.querySelector('.popup__input_place');
-const popupAddLink = document.querySelector('.popup__input_link');
+export const popupAddPlace = document.querySelector('.popup__input_place');
+export const popupAddLink = document.querySelector('.popup__input_link');
 const popupAddSaveButton = document.querySelector('.popup-add__save-button');
 const template = document.querySelector('.template');
 const gallery = document.querySelector('.gallery');
 const galleryItem = gallery.querySelector('.gallery__item');
-const closeupPopupCloseBtn = document.querySelector('.closeupPopup__close-button');
+/*const closeupPopupCloseBtn = document.querySelector('.closeupPopup__close-button');
 const closeupPopupTxt = document.querySelector('.closeupPopup__text')
 const closeupPopupPic = document.querySelector('.closeupPopup__pic');
-const closeupPopup = document.querySelector('.closeupPopup');
+const closeupPopup = document.querySelector('.closeupPopup');*/
 const body = document.querySelector('.content');
 const main = document.querySelector('.main');
-const initialCards = [
+/*const initialCards = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -48,7 +51,7 @@ const initialCards = [
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-];
+];*/
 
 const popupEscapeHandler = (evt) => {
     if(evt.key === 'Escape'){
@@ -57,7 +60,7 @@ const popupEscapeHandler = (evt) => {
     }
 }
 
-const togglePopup = (popup) => {
+export const togglePopup = (popup) => {
     popup.classList.toggle('popup_opened')
     if(popup.classList.contains('popup_opened')){
         document.addEventListener('keydown', popupEscapeHandler)
@@ -66,7 +69,7 @@ const togglePopup = (popup) => {
     }
 }
 
-const getCard = function(data) {
+/*const getCard = function(data) {
     const cardItem = template.content.cloneNode(true);
     const cardImage = cardItem.querySelector('.gallery__pic');   
     cardImage.src = data.link;
@@ -84,9 +87,9 @@ const getCard = function(data) {
          closeupPopupTxt.textContent = evt.target.closest('.gallery__item').textContent    
     })
     return cardItem;
-  };
+  };*/
 
-function render() {
+/*function render() {
     const cardsInitial = initialCards.map((element) =>
         getCard(element)
         );
@@ -95,16 +98,7 @@ function render() {
 
 render();
 
-const addCard = () => {    
-    const item = getCard( {
-    name: popupAddPlace.value,
-    link: popupAddLink.value
-})
-togglePopup(addPopup);
-gallery.prepend(item);
-popupAddPlace.value = '';
-popupAddLink.value = '';
-};
+*/
 
 const spanEraser = (form) => {
     const formSpans = form.getElementsByTagName('span');
@@ -118,14 +112,14 @@ const spanEraser = (form) => {
 popupOpenButton.addEventListener('click', () => {
     popupName.value = name.textContent;
     popupProfession.value = profession.textContent;
-    toggleButtonState(popupSaveButton, popupEdit.checkValidity(), validityConfig);
+    
     togglePopup(popupEdit);
     spanEraser(popupEdit);
     });
  
 addPopupOpenButton.addEventListener('click', () => {   
     togglePopup(addPopup);
-    toggleButtonState(popupAddSaveButton, addPopup.checkValidity(), validityConfig);
+    
     spanEraser(addPopup);
 });
 
@@ -150,15 +144,12 @@ addPopup.addEventListener('click', (evt) => {
             }
         })
 
-closeupPopup.addEventListener('click', (evt) => {
+/*closeupPopup.addEventListener('click', (evt) => {
     if((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-button-image'))){
         togglePopup(closeupPopup);
             }
-        })
+        })*/
         
-addPopup.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    addCard();
-});
+
 
 
