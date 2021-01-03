@@ -1,43 +1,3 @@
-import * as indexScr from './index.js';
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
-const closeupPopupCloseBtn = document.querySelector('.closeupPopup__close-button');
-const closeupPopupTxt = document.querySelector('.closeupPopup__text')
-const closeupPopupPic = document.querySelector('.closeupPopup__pic');
-const closeupPopup = document.querySelector('.closeupPopup');
-const likeButton = document.querySelector('.gallery__like-button');
-const deleteButton = document.querySelector('.gallery__delete-button');
-const popupOpened = document.querySelector('.popup_opened');
-
-closeupPopup.addEventListener('click', (evt) => {
-  if(evt.target.classList.contains('popup_opened'))
-  indexScr.togglePopup(closeupPopup)
-})
 
 export class Card {
     constructor(data, cardSelector) {
@@ -62,9 +22,10 @@ export class Card {
     generateCard(){
       this._element = this._getTemplate();
       this._setEventListeners()
-      this._element.querySelector('.gallery__pic').src = this._link;
+      const thisPic = this._element.querySelector('.gallery__pic');
+      thisPic.src = this._link;
       this._element.querySelector('.gallery__text').textContent = this._name;
-      this._element.querySelector('.gallery__pic').alt = this._alt;
+      thisPic.alt = this._alt;
       
       return this._element;
     }
@@ -78,22 +39,22 @@ export class Card {
     }
  
     _handleOpenPopup(){
-        closeupPopupPic.src = this._link;
-        closeupPopup.classList.add('popup_opened');
-        closeupPopupTxt.textContent = this._name;
+        document.querySelector('.closeupPopup__pic').src = this._link;
+        
+        document.querySelector('.closeupPopup__text').textContent = this._name;
+        document.querySelector('.closeupPopup').classList.add('popup_opened');
       }
      
     _handleClosePopup(){
-        closeupPopup.classList.remove('popup_opened');
-        closeupPopupPic.src = '';
-        closeupPopupTxt.textContent = '';
+        document.querySelector('.closeupPopup').classList.remove('popup_opened');
+       
       }
 
     _setEventListeners(){
         this._element.querySelector('.gallery__pic').addEventListener('click', () => {
           this._handleOpenPopup()
         })
-        closeupPopupCloseBtn.addEventListener('click', () => {
+        document.querySelector('.closeupPopup__close-button').addEventListener('click', () => {
           this._handleClosePopup()
         })
         this._element.querySelector('.gallery__delete-button').addEventListener('click', () => {
@@ -105,28 +66,3 @@ export class Card {
         }
 }
 
-initialCards.forEach((item) => {
-    const card = new Card(item, '.template');
-    const cardElement = card.generateCard();
-  
-    document.querySelector('.gallery').append(cardElement);
-  });  
-  
-  const addCard = () => { 
-  
-    const item = new Card({
-      name: indexScr.popupAddPlace.value,
-      link: indexScr.popupAddLink.value
-    }, '.template')
-    const popupItem = item.generateCard();
-  
-  indexScr.togglePopup(indexScr.addPopup);
-  document.querySelector('.gallery').prepend(popupItem);
-  indexScr.popupAddPlace.value = '';
-  indexScr.popupAddLink.value = '';
-  };
-  
-  indexScr.addPopup.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    addCard();
-  });

@@ -65,33 +65,13 @@ export class Validator{
         this._setEvtListn()
        }
 
-
-
 };
 
-const editForm = document.querySelector('.popup-edit');
-
-const addForm = document.querySelector('.popup-add');
-
-const forms = document.querySelectorAll('.form');
-
-console.log(forms[0])
-
-const validityConfig = {
-   formSelector: '.form',
-   buttonSelector: '.popup__save-button',
-   inputSelector: '.popup__input',
-   inputErrorClass: 'popup__input_state-invalid',
-   inactiveButtonClass: 'popup__save-button_inactive',
-   errorVisibleClass: 'popup__input-error_active'
-}
-
- 
-const editFormValidated = new Validator(validityConfig, editForm);
-
-editFormValidated.enableValidation();
-
-
-const addFormValidated = new Validator(validityConfig, addForm);
-
-addFormValidated.enableValidation();
+export const spanEraser = (form) => {
+    const formSpans = form.getElementsByTagName('span');
+    const formInputs = form.getElementsByTagName('input');
+    formSpans[0].textContent = '';
+    formSpans[1].textContent = '';
+    formInputs[0].classList.remove('popup__input_state-invalid');
+    formInputs[1].classList.remove('popup__input_state-invalid');
+} 
