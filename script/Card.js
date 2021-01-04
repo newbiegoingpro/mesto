@@ -1,3 +1,4 @@
+import {closeupPopup, closeupPopupTxt, closeupPopupPic, openPopup} from './index.js';
 
 export class Card {
     constructor(data, cardSelector) {
@@ -39,10 +40,9 @@ export class Card {
     }
  
     _handleOpenPopup(){
-        document.querySelector('.closeupPopup__pic').src = this._link;
-        
-        document.querySelector('.closeupPopup__text').textContent = this._name;
-        document.querySelector('.closeupPopup').classList.add('popup_opened');
+        closeupPopupPic.src = this._link; 
+        closeupPopupTxt.textContent = this._name;
+        openPopup(closeupPopup);
       }
      
     _handleClosePopup(){
@@ -53,9 +53,6 @@ export class Card {
     _setEventListeners(){
         this._element.querySelector('.gallery__pic').addEventListener('click', () => {
           this._handleOpenPopup()
-        })
-        document.querySelector('.closeupPopup__close-button').addEventListener('click', () => {
-          this._handleClosePopup()
         })
         this._element.querySelector('.gallery__delete-button').addEventListener('click', () => {
           this._handleDeleteButton()

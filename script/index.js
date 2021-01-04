@@ -21,9 +21,9 @@ const template = document.querySelector('.template');
 const gallery = document.querySelector('.gallery');
 const galleryItem = gallery.querySelector('.gallery__item');
 const closeupPopupCloseBtn = document.querySelector('.closeupPopup__close-button');
-const closeupPopupTxt = document.querySelector('.closeupPopup__text')
-const closeupPopupPic = document.querySelector('.closeupPopup__pic');
-const closeupPopup = document.querySelector('.closeupPopup');
+export const closeupPopupTxt = document.querySelector('.closeupPopup__text')
+export const closeupPopupPic = document.querySelector('.closeupPopup__pic');
+export const closeupPopup = document.querySelector('.closeupPopup');
 const body = document.querySelector('.content');
 const main = document.querySelector('.main');
 export const initialCards = [
@@ -83,7 +83,8 @@ addPopupOpenButton.addEventListener('click', () => {
     spanEraser(popupAdd);
 });
 
-closeupPopupPic.addEventListener('click', (evt) => {
+gallery.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('.gallery__pic'))
     openPopup(closeupPopup)
     });
 
@@ -117,7 +118,7 @@ popupAdd.addEventListener('click', (evt) => {
 initialCards.forEach((item) => {
     const card = new Card(item, '.template');
     const cardElement = card.generateCard();       
-    document.querySelector('.gallery').append(cardElement);
+    gallery.append(cardElement);
           });  
           
 const addCard = () => { 
@@ -127,9 +128,8 @@ const item = new Card({
               link: popupAddLink.value
             }, '.template')
     const popupItem = item.generateCard();
-          
     closePopup(popupAdd); 
-    document.querySelector('.gallery').prepend(popupItem); 
+    gallery.prepend(popupItem); 
     popupAddPlace.value = ''; 
     popupAddLink.value = ''; 
     }; 
