@@ -1,11 +1,12 @@
-import {closeupPopup, closeupPopupTxt, closeupPopupPic, openPopup} from './index.js';
+import {closeupPopup, closeupPopupTxt, closeupPopupPic, openPopup} from './const.js';
 
 export class Card {
-    constructor(data, cardSelector) {
+    constructor({handleCardClick}, data, cardSelector) {
       this._alt = data.name;
       this._name = data.name;
       this._link = data.link;
       this._cardSelector = cardSelector;
+      this._handleCardClick = handleCardClick
     }
   
     _getTemplate() {
@@ -16,7 +17,7 @@ export class Card {
         .content
         .querySelector('.gallery__item')
         .cloneNode(true);
-  
+        
       return cardElement;
     }
 
@@ -27,7 +28,7 @@ export class Card {
       thisPic.src = this._link;
       this._element.querySelector('.gallery__text').textContent = this._name;
       thisPic.alt = this._alt;
-      
+      console.log(this._element)
       return this._element;
     }
 
@@ -40,9 +41,8 @@ export class Card {
     }
  
     _handleOpenPopup(){
-        closeupPopupPic.src = this._link; 
-        closeupPopupTxt.textContent = this._name;
-        openPopup(closeupPopup);
+      document.querySelector('.closeupPopup').classList.add('popup_opened')
+        
       }
      
     _handleClosePopup(){
@@ -52,7 +52,8 @@ export class Card {
 
     _setEventListeners(){
         this._element.querySelector('.gallery__pic').addEventListener('click', () => {
-          this._handleOpenPopup()
+          
+          this._handleCardClick(this._handleOpenPopup())
         })
         this._element.querySelector('.gallery__delete-button').addEventListener('click', () => {
           this._handleDeleteButton()

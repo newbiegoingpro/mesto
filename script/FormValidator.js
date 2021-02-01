@@ -1,5 +1,5 @@
 
-export class Validator{
+export class FormValidator{
     constructor(config, formElement){
         this._formSelector = config.formSelector;
         this._buttonSelector = config.buttonSelector;
@@ -67,11 +67,3 @@ export class Validator{
 
 };
 
-export const spanEraser = (form) => {
-    const formSpans = form.getElementsByTagName('span');
-    const formInputs = form.getElementsByTagName('input');
-    formSpans[0].textContent = '';
-    formSpans[1].textContent = '';
-    formInputs[0].classList.remove('popup__input_state-invalid');
-    formInputs[1].classList.remove('popup__input_state-invalid');
-} 
