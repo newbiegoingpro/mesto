@@ -23,14 +23,14 @@ import {profile,
     closeupPopupPic,      
     closeupPopup   ,   
     validityConfig , 
-    initialCards} from '../script/const.js';
-import {Card} from '../script/Card.js';
-import {UserInfo} from '../script/UserInfo.js';
-import {FormValidator, spanEraser} from '../script/FormValidator.js';
-import {Popup} from '../script/Popup.js';
-import {PopupWithForm} from '../script/PopupWithForm.js';
-import {PopupWithImage} from '../script/PopupWithImage.js';
-import {Section} from '../script/Section.js';
+    initialCards} from './script/const.js';
+import {Card} from './script/Card.js';
+import {UserInfo} from './script/UserInfo.js';
+import {FormValidator} from './script/FormValidator.js';
+import {Popup} from './script/Popup.js';
+import {PopupWithForm} from './script/PopupWithForm.js';
+import {PopupWithImage} from './script/PopupWithImage.js';
+import {Section} from './script/Section.js';
 import './index.css';
 const gallerySection = new Section({data: initialCards, renderer: (item) => {
     console.log(item)
