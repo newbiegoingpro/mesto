@@ -1,10 +1,9 @@
-import {closeupPopup, closeupPopupTxt, closeupPopupPic, openPopup} from './const.js';
 
 export class Card {
-    constructor({handleCardClick}, data, cardSelector) {
-      this._alt = data.name;
-      this._name = data.name;
-      this._link = data.link;
+    constructor({handleCardClick, name, link}, cardSelector) {
+      this._alt = name;
+      this._name = name;
+      this._link = link;
       this._cardSelector = cardSelector;
       this._handleCardClick = handleCardClick
     }
@@ -16,19 +15,18 @@ export class Card {
         )
         .content
         .querySelector('.gallery__item')
-        .cloneNode(true);
-        
+        .cloneNode(true);  
       return cardElement;
     }
 
-    generateCard(){
+    generateCard(data){
       this._element = this._getTemplate();
       this._setEventListeners()
       const thisPic = this._element.querySelector('.gallery__pic');
-      thisPic.src = this._link;
-      this._element.querySelector('.gallery__text').textContent = this._name;
-      thisPic.alt = this._alt;
-      console.log(this._element)
+      const thisText = this._element.querySelector('.gallery__text');
+      thisPic.src = data['link'];
+      thisPic.alt = data['name'];
+      thisText.textContent = data['name'];
       return this._element;
     }
 
@@ -39,21 +37,10 @@ export class Card {
     _handleLikeButton(){
       this._element.querySelector('.gallery__like-button').classList.toggle('gallery__like-button_active')
     }
- 
-    _handleOpenPopup(){
-      document.querySelector('.closeupPopup').classList.add('popup_opened')
-        
-      }
-     
-    _handleClosePopup(){
-        document.querySelector('.closeupPopup').classList.remove('popup_opened');
-       
-      }
-
     _setEventListeners(){
         this._element.querySelector('.gallery__pic').addEventListener('click', () => {
           
-          this._handleCardClick(this._handleOpenPopup())
+          this._handleCardClick({name: this._name, link: this._link})
         })
         this._element.querySelector('.gallery__delete-button').addEventListener('click', () => {
           this._handleDeleteButton()

@@ -24,7 +24,7 @@ export class FormValidator{
         errorElem.classList.remove(this._errorVisibleClass);
       };
     
-    _toggleButtonState(buttonElement, boolean){
+    toggleButtonState(buttonElement, boolean){
         if(boolean){
             buttonElement.classList.remove(this._inactiveButtonClass);
             buttonElement.disabled = false;
@@ -46,15 +46,15 @@ export class FormValidator{
         const inputList = this._element.querySelectorAll(this._inputSelector);
         const buttonElement = this._element.querySelector(this._buttonSelector);
         if (this._element.classList.contains('popup-edit')){
-            this._toggleButtonState(buttonElement, true);
+            this.toggleButtonState(buttonElement, true);
         } else {
-            this._toggleButtonState(buttonElement, false);
+            this.toggleButtonState(buttonElement, false);
         }
         
         inputList.forEach(input => {
             input.addEventListener('input', (evt) => {
                 this._checkInputValidity(this._element, input)
-                this._toggleButtonState(buttonElement, this._element.checkValidity());
+                this.toggleButtonState(buttonElement, this._element.checkValidity());
             })    
         });
         
