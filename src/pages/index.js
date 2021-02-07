@@ -33,9 +33,10 @@ import {PopupWithImage} from '../script/PopupWithImage.js';
 import {Section} from '../script/Section.js';
 import './index.css';
 
-function openCloseupPopup(cardItem) {
-   const cardPopup = new PopupWithImage({imageSelector:'.closeupPopup__pic',
+const cardPopup = new PopupWithImage({imageSelector:'.closeupPopup__pic',
     textSelector:'.closeupPopup__text', popupSelector:'.closeupPopup'})
+
+function openCloseupPopup(cardItem) {   
     cardPopup.open(cardItem)
     cardPopup.setEventListeners()
 } 
@@ -43,7 +44,7 @@ function openCloseupPopup(cardItem) {
 function newCard(data){
     const card = new Card(
        {handleCardClick: openCloseupPopup, 
-        name: data.name, link: data.link }, '.template').generateCard(data);
+        name: data.place, link: data.link }, '.template').generateCard(data);
     gallerySection.addItem(card)
 }
 

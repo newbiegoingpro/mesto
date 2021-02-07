@@ -1,4 +1,4 @@
-import {popupOpenButton, addPopupOpenButton, popupEdit, popupAdd, popupCloseButton, addPopupClose, popupContainer} from './const.js';
+
 export class Popup {
     constructor(popupSelector){
         this._element = document
@@ -16,7 +16,7 @@ export class Popup {
     _handleEscClose(evt){
         
         if(evt.key === 'Escape'){
-            console.log('HEllo')
+            
             this.close()
         }
     }

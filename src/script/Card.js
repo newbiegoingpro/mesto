@@ -25,8 +25,8 @@ export class Card {
       const thisPic = this._element.querySelector('.gallery__pic');
       const thisText = this._element.querySelector('.gallery__text');
       thisPic.src = data['link'];
-      thisPic.alt = data['name'];
-      thisText.textContent = data['name'];
+      thisPic.alt = data['place'];
+      thisText.textContent = data['place'];
       return this._element;
     }
 
