@@ -13,8 +13,8 @@ export class UserInfo{
         return infoObj;
     }
     setInfo(data){
-        this._name.textContent = data['name-Input'];
-        this._profession.textContent = data['profession-Input']
+        this._name.textContent = data['name'];
+        this._profession.textContent = data['about']
         
     }
 }

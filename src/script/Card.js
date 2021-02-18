@@ -1,11 +1,20 @@
 
 export class Card {
-    constructor({handleCardClick, name, link}, cardSelector) {
-      this._alt = name;
-      this._name = name;
-      this._link = link;
+    constructor({handleCardClick, handleDeleteBasketClick, handleLikeClick, handleRemoveLikeClick, data}, myId, cardSelector, api) {
+     /* debugger*/
+      this._alt = data.name;
+      this._name = data.name;
+      this._link = data.link;
+      this._ownerId = data.owner._id;
+      this._myId = myId;
+      this._id = data._id;
+      this._likes = data.likes;
       this._cardSelector = cardSelector;
-      this._handleCardClick = handleCardClick
+      this._handleCardClick = handleCardClick;
+      this._handleDeleteBasketClick = handleDeleteBasketClick;
+      this._handleLikeClick = handleLikeClick;
+      this._handleRemoveLikeClick = handleRemoveLikeClick
+      this._api = api;
     }
   
     _getTemplate() {
@@ -24,30 +33,66 @@ export class Card {
       this._setEventListeners()
       const thisPic = this._element.querySelector('.gallery__pic');
       const thisText = this._element.querySelector('.gallery__text');
+      this._element.querySelector('.gallery__like-counter').textContent = this._likes.length;
+      this._likes.forEach(element => {
+        if(element._id === this._myId){
+         this._element.querySelector('.gallery__like-button').classList.add('gallery__like-button_active')
+        } })
+      if(this._ownerId !== this._myId){
+        this._element.querySelector('.gallery__delete-button').style.visibility = 'hidden'}
       thisPic.src = data['link'];
-      thisPic.alt = data['place'];
-      thisText.textContent = data['place'];
+      thisPic.alt = data['name'];
+      thisText.textContent = data['name'];
       return this._element;
     }
+     
+    
 
-    _handleDeleteButton(){
+    handleDeleteButton(){
       this._element.querySelector('.gallery__delete-button').closest('.gallery__item').remove();
     }
 
-    _handleLikeButton(){
-      this._element.querySelector('.gallery__like-button').classList.toggle('gallery__like-button_active')
+    addLikeButton(){
+      this._element.querySelector('.gallery__like-button').classList.add('gallery__like-button_active')
     }
+
+    removeLikeButton(){
+      this._element.querySelector('.gallery__like-button').classList.remove('gallery__like-button_active')
+    }
+
+    increaseLikeCounter(arr){
+      this._element.querySelector('.gallery__like-counter').textContent = arr.length 
+    }
+
+    decreaseLikeCounter(arr){
+      this._element.querySelector('.gallery__like-counter').textContent = arr.length 
+    }
+
     _setEventListeners(){
-        this._element.querySelector('.gallery__pic').addEventListener('click', () => {
-          
+        this._element.querySelector('.gallery__pic').addEventListener('click', () => { 
           this._handleCardClick({name: this._name, link: this._link})
         })
         this._element.querySelector('.gallery__delete-button').addEventListener('click', () => {
-          this._handleDeleteButton()
+            this._handleDeleteBasketClick(this._id);
+            /*this._handleDeleteButton();*/
+          })
+        this._element.querySelector('.gallery__like-button').addEventListener('click', (e) => {
+          if(e.target.classList.contains('gallery__like-button_active')){
+            this._element.querySelector('.gallery__like-button').classList.remove('gallery__like-button_active')
+            this._handleRemoveLikeClick(this._id, this._likes)
+            this._element.querySelector('.gallery__like-counter').textContent = this._likes.length 
+          } else if(!(e.target.classList.contains('gallery__like-button_active'))) {
+            this._element.querySelector('.gallery__like-button').classList.add('gallery__like-button_active')
+            this._handleLikeClick(this._id, this._likes);
+            this._element.querySelector('.gallery__like-counter').textContent = this._likes.length 
+           }
+            
         })
-        this._element.querySelector('.gallery__like-button').addEventListener('click', () => {
-          this._handleLikeButton()
-        })
+      // this._element.querySelector('.gallery__like-button').querySelector('.gallery__like-button_active').addEventListener('click', () => {
+       //     ;
+        //    /*this.removeLikeButton();*/
+          
+       // })
         }
 }
 

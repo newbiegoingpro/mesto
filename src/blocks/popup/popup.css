@@ -10,7 +10,7 @@
 @import url(./__save-button/_inactive/popup__save-button_inactive.css);
 @import url(./__input-error/popup__input-error.css);
 @import url(./__input-error/_active/popup__input-error_active.css);
-
+@import url(./_short/popup__container_short.css);
 .popup{
     position: fixed;
     top: 0;

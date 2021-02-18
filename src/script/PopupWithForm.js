@@ -26,23 +26,31 @@ export class PopupWithForm extends Popup{
             this.spanEraser()
         }
         
-    }   
+    }  
+    
+    isLoading(boolean){
+        if(boolean){
+            this._element.querySelector('.popup__save-button').textContent = 'Сохранение..'
+        } else {this._element.querySelector('.popup__save-button').textContent = 'Сохранить'}
+    }
+
     setEventListeners(){
         this._element.addEventListener('submit', (evt) => {
             evt.preventDefault();
+            this.isLoading(true);
+            setTimeout(10000)
             this._submitCallback(this._getInputValues());
             super.close()
+            console.log(this._element.querySelector('.popup__save-button').textContent)
         },{ once: true})
         super.setEventListeners();
     }
     spanEraser(){
         this._element.reset();
-        const formSpans = this._element.getElementsByTagName('span');
-        const formInputs = this._element.getElementsByTagName('input');
-        formSpans[0].textContent = '';
-        formSpans[1].textContent = '';
-        formInputs[0].classList.remove('popup__input_state-invalid');
-        formInputs[1].classList.remove('popup__input_state-invalid');
+        const formSpans = this._element.querySelectorAll('.popup__input-error');
+        const formInputs = this._element.querySelectorAll('.popup__input');
+        formSpans.forEach(span => span.textContent = '');
+        formInputs.forEach(input => input.value = '');
     }
     
 }

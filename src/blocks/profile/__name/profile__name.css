@@ -10,12 +10,12 @@
     background-color: black;
     border: none;
     color: white;
-    min-width: 295px;
+    max-width: 295px;
     
 }
-@media screen and (max-width: 767px){
+@media screen and (max-width: 768px){
     .profile__name{
-        min-width: 200px;
+        max-width: 200px;
         font-size: 27px;
         text-align: center;
     }

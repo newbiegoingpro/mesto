@@ -2,9 +2,8 @@
 .popup__close-button{
     height: 40px;
     width: 40px;
-    
     margin-left: 430px;
-    margin-top: -45px;
+    margin-top: -55px;
     border: 0;
     background: none;
     z-index: -1;
