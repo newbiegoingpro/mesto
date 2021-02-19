@@ -104,15 +104,15 @@ function newCard(data){
         },  handleLikeClick: (data, likes) => {
               api.likeCard(data)
                 .then((data) => {
-                    console/log()
-                    /*card.increaseLikeCounter(likes)*/
+                    
+                    
                     console.log(data)})
                 .catch(err => console.log(err))
         },  handleRemoveLikeClick: (data, likes) => {
               api.removeLike(data)
                 .then((data) =>
                     {
-                    /*card.decreaseLikeCounter(likes)*/
+                    
                     console.log(data)})
                 .catch(err => console.log(err))
         },

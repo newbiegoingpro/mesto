@@ -60,12 +60,12 @@ export class Card {
       this._element.querySelector('.gallery__like-button').classList.remove('gallery__like-button_active')
     }
 
-    increaseLikeCounter(arr){
-      this._element.querySelector('.gallery__like-counter').textContent = arr.length 
+    increaseLikeCounter(){
+      this._element.querySelector('.gallery__like-counter').textContent =  Number(this._element.querySelector('.gallery__like-counter').textContent) + 1
     }
 
-    decreaseLikeCounter(arr){
-      this._element.querySelector('.gallery__like-counter').textContent = arr.length 
+    decreaseLikeCounter(){
+      this._element.querySelector('.gallery__like-counter').textContent = this._element.querySelector('.gallery__like-counter').textContent - 1
     }
 
     _setEventListeners(){
@@ -74,17 +74,17 @@ export class Card {
         })
         this._element.querySelector('.gallery__delete-button').addEventListener('click', () => {
             this._handleDeleteBasketClick(this._id);
-            /*this._handleDeleteButton();*/
+            
           })
         this._element.querySelector('.gallery__like-button').addEventListener('click', (e) => {
           if(e.target.classList.contains('gallery__like-button_active')){
             this._element.querySelector('.gallery__like-button').classList.remove('gallery__like-button_active')
             this._handleRemoveLikeClick(this._id, this._likes)
-            this._element.querySelector('.gallery__like-counter').textContent = this._likes.length 
+            this.decreaseLikeCounter() 
           } else if(!(e.target.classList.contains('gallery__like-button_active'))) {
             this._element.querySelector('.gallery__like-button').classList.add('gallery__like-button_active')
             this._handleLikeClick(this._id, this._likes);
-            this._element.querySelector('.gallery__like-counter').textContent = this._likes.length 
+            this.increaseLikeCounter() 
            }
             
         })
