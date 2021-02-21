@@ -35,6 +35,7 @@ export class PopupWithForm extends Popup{
             setTimeout(10000)
             this._submitCallback(this._getInputValues());
             super.close()
+            this._element.reset();
         },{ once: true})
         super.setEventListeners();
     }

@@ -14,7 +14,7 @@ export class ConfirmationPopup extends Popup{
             e.preventDefault();
             this.callback(this.data)
             this.close()
-        }, {once: 1})
+        })
         super.setEventListeners()
     }
 

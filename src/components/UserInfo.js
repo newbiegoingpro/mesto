@@ -1,4 +1,4 @@
-import { avatar } from "./const";
+import { avatar } from "../utils/const";
 
 export class UserInfo{
     constructor({ nameSelector, professionSelector, avatarSelector }){

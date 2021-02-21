@@ -29,15 +29,15 @@ import {profile,
     /*deletePopup,*/
     likeCounter,
     apiConfig,
-    avatar} from '../script/const.js';
-import {Card} from '../script/Card.js';
-import {UserInfo} from '../script/UserInfo.js';
-import {FormValidator} from '../script/FormValidator.js';
-import {ConfirmationPopup} from '../script/ConfirmationPopup.js';
-import {PopupWithForm} from '../script/PopupWithForm.js';
-import {PopupWithImage} from '../script/PopupWithImage.js';
-import {Section} from '../script/Section.js';
-import {Api} from '../script/Api.js';
+    avatar} from '../utils/const.js';
+import {Card} from '../components/Card.js';
+import {UserInfo} from '../components/UserInfo.js';
+import {FormValidator} from '../components/FormValidator.js';
+import {ConfirmationPopup} from '../components/ConfirmationPopup.js';
+import {PopupWithForm} from '../components/PopupWithForm.js';
+import {PopupWithImage} from '../components/PopupWithImage.js';
+import {Section} from '../components/Section.js';
+import {Api} from '../components/Api.js';
 import './index.css';
 let myId = null;
 let cardId = null;
