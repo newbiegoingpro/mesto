@@ -8,18 +8,10 @@ export class PopupWithImage extends Popup{
         .querySelector(textSelector);
     } 
     open(data){
-        console.log(this._text)
         this._image.src = data.link
         this._image.alt =  data.name
         this._text.textContent = data.name
         super.open();
-    }
-    close(){
-        super.close()
-    }
-    
-    setEventListeners(){
-        super.setEventListeners()
     }
 }
 

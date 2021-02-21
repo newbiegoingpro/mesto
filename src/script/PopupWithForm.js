@@ -16,17 +16,11 @@ export class PopupWithForm extends Popup{
         return this._formValues;
     }
     close(){
-        this.spanEraser()
+        this._element.reset();
         super.close()
         
        }
-    open(){
-        super.open();
-        if(this._element.classList.contains('popup-add')){
-            this.spanEraser()
-        }
-        
-    }  
+    
     
     isLoading(boolean){
         if(boolean){
@@ -41,16 +35,9 @@ export class PopupWithForm extends Popup{
             setTimeout(10000)
             this._submitCallback(this._getInputValues());
             super.close()
-            console.log(this._element.querySelector('.popup__save-button').textContent)
         },{ once: true})
         super.setEventListeners();
     }
-    spanEraser(){
-        this._element.reset();
-        const formSpans = this._element.querySelectorAll('.popup__input-error');
-        const formInputs = this._element.querySelectorAll('.popup__input');
-        formSpans.forEach(span => span.textContent = '');
-        formInputs.forEach(input => input.value = '');
-    }
+    
     
 }

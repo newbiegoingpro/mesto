@@ -52,6 +52,10 @@ export class Card {
       this._element.querySelector('.gallery__delete-button').closest('.gallery__item').remove();
     }
 
+    updateLikeCounter(data){
+      this._element.querySelector('.gallery__like-counter').textContent = data.likes.length
+    }
+
     addLikeButton(){
       this._element.querySelector('.gallery__like-button').classList.add('gallery__like-button_active')
     }
@@ -59,15 +63,6 @@ export class Card {
     removeLikeButton(){
       this._element.querySelector('.gallery__like-button').classList.remove('gallery__like-button_active')
     }
-
-    increaseLikeCounter(){
-      this._element.querySelector('.gallery__like-counter').textContent =  Number(this._element.querySelector('.gallery__like-counter').textContent) + 1
-    }
-
-    decreaseLikeCounter(){
-      this._element.querySelector('.gallery__like-counter').textContent = this._element.querySelector('.gallery__like-counter').textContent - 1
-    }
-
     _setEventListeners(){
         this._element.querySelector('.gallery__pic').addEventListener('click', () => { 
           this._handleCardClick({name: this._name, link: this._link})
@@ -80,19 +75,11 @@ export class Card {
           if(e.target.classList.contains('gallery__like-button_active')){
             this._element.querySelector('.gallery__like-button').classList.remove('gallery__like-button_active')
             this._handleRemoveLikeClick(this._id, this._likes)
-            this.decreaseLikeCounter() 
           } else if(!(e.target.classList.contains('gallery__like-button_active'))) {
             this._element.querySelector('.gallery__like-button').classList.add('gallery__like-button_active')
-            this._handleLikeClick(this._id, this._likes);
-            this.increaseLikeCounter() 
-           }
-            
+            this._handleLikeClick(this._id, this._likes); 
+           }    
         })
-      // this._element.querySelector('.gallery__like-button').querySelector('.gallery__like-button_active').addEventListener('click', () => {
-       //     ;
-        //    /*this.removeLikeButton();*/
-          
-       // })
         }
 }
 

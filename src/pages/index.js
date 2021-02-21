@@ -33,7 +33,7 @@ import {profile,
 import {Card} from '../script/Card.js';
 import {UserInfo} from '../script/UserInfo.js';
 import {FormValidator} from '../script/FormValidator.js';
-import {Popup} from '../script/Popup.js';
+import {ConfirmationPopup} from '../script/ConfirmationPopup.js';
 import {PopupWithForm} from '../script/PopupWithForm.js';
 import {PopupWithImage} from '../script/PopupWithImage.js';
 import {Section} from '../script/Section.js';
@@ -53,9 +53,7 @@ const api = new Api({
 
 api.getUserInfo()
     .then((data) => {
-        name.textContent = data.name;
-        profession.textContent = data.about;
-        avatar.src = data.avatar;
+        userInfo.setInfo(data);
         myId = data._id   
         console.log(myId)
     })
@@ -77,43 +75,55 @@ api.getInitialCards()
     
 const cardPopup = new PopupWithImage({imageSelector:'.closeupPopup__pic',
     textSelector:'.closeupPopup__text', popupSelector:'.closeupPopup'})
-
+cardPopup.setEventListeners();
 
 
 function openCloseupPopup(cardItem) {   
     cardPopup.open(cardItem);
-    cardPopup.setEventListeners();
 } 
+
+function callbackStatement(data){
+    deletePopup.setSubmitCallback(()=>{api.removeCard(data)
+    .then((data) => {   
+        console.log(data)})
+    .catch(err => console.log(err))
+    .finally(deletePopup.close())})
+    
+}
+
+const deletePopup = new ConfirmationPopup(/*{submitCallback: callbackStatement},*/'.popup-delete');
+deletePopup.setEventListeners()
+/*function deletePopupInstance(data){   
+    
+    deletePopup.open(data);
+}*/
+
 
 function newCard(data){
     const card = new Card(
-        {handleCardClick: openCloseupPopup, 
-            handleDeleteBasketClick: (data) => {
-                console.log(data)
-                const deletePopup = new Popup('.popup-delete');
+            {handleCardClick: openCloseupPopup, 
+             handleDeleteBasketClick: (data) => {
                 deletePopup.open();
-                deletePopup.setEventListeners();
-                document.querySelector('.popup-delete').addEventListener('submit' , (e) => {
-                    e.preventDefault();
-                    api.removeCard(data)
-                        .then(data => console.log(data))
-                        .catch(err => console.log(err))
-                    card.handleDeleteButton()
-                    deletePopup.close();
-                })
+                
+               deletePopup.setSubmitCallback(() => {
+                api.removeCard(data)
+                .then((data) => {   
+                    card.handleDeleteButton()})
+                .catch(err => console.log(err))
+                
+                })  
+                    
         },  handleLikeClick: (data, likes) => {
               api.likeCard(data)
                 .then((data) => {
-                    
-                    
-                    console.log(data)})
+                    card.updateLikeCounter(data)
+                    })
                 .catch(err => console.log(err))
         },  handleRemoveLikeClick: (data, likes) => {
               api.removeLike(data)
-                .then((data) =>
-                    {
-                    
-                    console.log(data)})
+                .then((data) => {
+                    card.updateLikeCounter(data)
+                    })
                 .catch(err => console.log(err))
         },
             data}, myId, '.template', api)
@@ -129,32 +139,33 @@ avatarFormValidated.enableValidation();
 editFormValidated.enableValidation(); 
 addFormValidated.enableValidation(); 
 
-const userInfo = new UserInfo({nameSelector: '.profile__name', professionSelector: '.profile__profession'});
+const userInfo = new UserInfo({nameSelector: '.profile__name', professionSelector: '.profile__profession', avatarSelector: '.profile__avatar'});
+
+const editPopup = new PopupWithForm({submitCallback: (data) => {
+    api.updateUserInfo(JSON.stringify(data))
+    .then((data) => userInfo.setInfo(data))
+    .catch(err => console.log(err))
+    .finally(editPopup.isLoading(false))
+}}, '.popup-edit')
 
 popupOpenButton.addEventListener('click', () => {
     popupName.value = userInfo.getInfo().name
-    popupProfession.value = userInfo.getInfo().profession
-    const editPopup = new PopupWithForm({submitCallback: (data) => {
-        api.updateUserInfo(JSON.stringify(data))
-        .then((data) => userInfo.setInfo(data))
-        .catch(err => console.log(err))
-        .finally(editPopup.isLoading(false))
-    }}, '.popup-edit')
+    popupProfession.value = userInfo.getInfo().profession 
     editPopup.open()
     editPopup.setEventListeners();
     editFormValidated.toggleButtonState(popupSaveButton, true); 
 })
 
-addPopupOpenButton.addEventListener('click', () => {
-    const addPopup = new PopupWithForm({submitCallback: (data)=>{
-        api.addNewCard(JSON.stringify(data))
-        .then(data => {
-            newCard(data)})
-        .catch(err => console.log(err))
-        .finally(addPopup.isLoading(false))
-    }  
-    }, '.popup-add')
-    
+const addPopup = new PopupWithForm({submitCallback: (data)=>{
+    api.addNewCard(JSON.stringify(data))
+    .then(data => {
+        newCard(data)})
+    .catch(err => console.log(err))
+    .finally(addPopup.isLoading(false))
+}  
+}, '.popup-add')
+
+addPopupOpenButton.addEventListener('click', () => { 
     addPopup.open();
     addPopup.setEventListeners();    
     addFormValidated.toggleButtonState(popupAddSaveButton, false); 
@@ -164,7 +175,7 @@ avatarButton.addEventListener('click', () => {
 const avatarPopup = new PopupWithForm({submitCallback: (data) => {
     api.updateUserPhoto(JSON.stringify(data))
         .then((data) => {
-            avatar.src = data.avatar
+            userInfo.setInfo(data)
             console.log(data)})
         .catch(err => console.log(err))  
         .finally(avatarPopup.isLoading(false))  

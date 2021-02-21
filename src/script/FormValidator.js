@@ -45,12 +45,14 @@ export class FormValidator{
    _setEvtListn(){
         const inputList = this._element.querySelectorAll(this._inputSelector);
         const buttonElement = this._element.querySelector(this._buttonSelector);
-        if (this._element.classList.contains('popup-edit')){
-            this.toggleButtonState(buttonElement, true);
-        } else {
-            this.toggleButtonState(buttonElement, false);
-        }
-        
+
+        this._element.addEventListener('reset', () => {
+            inputList.forEach((inputElement) => {
+                this._hideError(this._element, inputElement)
+                this.toggleButtonState(buttonElement, this._element.checkValidity());
+            })
+        });
+   
         inputList.forEach(input => {
             input.addEventListener('input', (evt) => {
                 this._checkInputValidity(this._element, input)
