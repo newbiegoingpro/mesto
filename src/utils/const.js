@@ -23,16 +23,10 @@ export const closeupPopupTxt = document.querySelector('.closeupPopup__text')
 export const closeupPopupPic = document.querySelector('.closeupPopup__pic');
 export const closeupPopup = document.querySelector('.closeupPopup');
 export const avatarButton = document.querySelector('.profile__avatar-button');
-export const avatarPopup = document.querySelector('.popup-avatar');
+export const avatarForm = document.querySelector('.popup-avatar');
 export const likeCounter = document.querySelector('.gallery__like-counter');
-/*export const deletePopup = document.querySelector('.popup-delete');*/
 export const avatar = document.querySelector('.profile__avatar');
-export const apiConfig = {
-    nameSelector: '.profile__name',
-    proffSelector: '.profile__profession',
-    avatarSelector: '.profile__avatar'
-}
-
+export const avatarSaveButton = document.querySelector('.popup-avatar__save-button');
 export const validityConfig = {
     formSelector: '.form',
     buttonSelector: '.popup__save-button',
@@ -41,29 +35,4 @@ export const validityConfig = {
     inactiveButtonClass: 'popup__save-button_inactive',
     errorVisibleClass: 'popup__input-error_active'
  }
-export const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+

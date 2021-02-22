@@ -1,7 +1,6 @@
 
 export class Card {
     constructor({handleCardClick, handleDeleteBasketClick, handleLikeClick, handleRemoveLikeClick, data}, myId, cardSelector, api) {
-     /* debugger*/
       this._alt = data.name;
       this._name = data.name;
       this._link = data.link;

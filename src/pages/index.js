@@ -25,11 +25,11 @@ import {profile,
     validityConfig, 
     initialCards,
     avatarButton,
-    avatarPopup,
-    /*deletePopup,*/
+    avatarForm,  
     likeCounter,
     apiConfig,
-    avatar} from '../utils/const.js';
+    avatar,
+    avatarSaveButton} from '../utils/const.js';
 import {Card} from '../components/Card.js';
 import {UserInfo} from '../components/UserInfo.js';
 import {FormValidator} from '../components/FormValidator.js';
@@ -91,13 +91,8 @@ function callbackStatement(data){
     
 }
 
-const deletePopup = new ConfirmationPopup(/*{submitCallback: callbackStatement},*/'.popup-delete');
+const deletePopup = new ConfirmationPopup('.popup-delete');
 deletePopup.setEventListeners()
-/*function deletePopupInstance(data){   
-    
-    deletePopup.open(data);
-}*/
-
 
 function newCard(data){
     const card = new Card(
@@ -132,7 +127,7 @@ function newCard(data){
        
 }
 
-const avatarFormValidated = new FormValidator(validityConfig, avatarPopup);
+const avatarFormValidated = new FormValidator(validityConfig, avatarForm);
 const editFormValidated = new FormValidator(validityConfig, popupEdit); 
 const addFormValidated = new FormValidator(validityConfig, popupAdd);
 avatarFormValidated.enableValidation(); 
@@ -147,12 +142,12 @@ const editPopup = new PopupWithForm({submitCallback: (data) => {
     .catch(err => console.log(err))
     .finally(editPopup.isLoading(false))
 }}, '.popup-edit')
+editPopup.setEventListeners();
 
 popupOpenButton.addEventListener('click', () => {
     popupName.value = userInfo.getInfo().name
     popupProfession.value = userInfo.getInfo().profession 
     editPopup.open()
-    editPopup.setEventListeners();
     editFormValidated.toggleButtonState(popupSaveButton, true); 
 })
 
@@ -164,14 +159,13 @@ const addPopup = new PopupWithForm({submitCallback: (data)=>{
     .finally(addPopup.isLoading(false))
 }  
 }, '.popup-add')
+addPopup.setEventListeners();
 
 addPopupOpenButton.addEventListener('click', () => { 
-    addPopup.open();
-    addPopup.setEventListeners();    
+    addPopup.open();    
     addFormValidated.toggleButtonState(popupAddSaveButton, false); 
 })
 
-avatarButton.addEventListener('click', () => {
 const avatarPopup = new PopupWithForm({submitCallback: (data) => {
     api.updateUserPhoto(JSON.stringify(data))
         .then((data) => {
@@ -179,8 +173,11 @@ const avatarPopup = new PopupWithForm({submitCallback: (data) => {
             console.log(data)})
         .catch(err => console.log(err))  
         .finally(avatarPopup.isLoading(false))  
-}}, '.popup-avatar')
-avatarPopup.open();
+}}, '.popup-avatar');
 avatarPopup.setEventListeners();
+
+avatarButton.addEventListener('click', () => {
+avatarPopup.open();
+avatarFormValidated.toggleButtonState(avatarSaveButton, false)
 })
 

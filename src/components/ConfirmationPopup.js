@@ -1,13 +1,10 @@
 
 import {Popup} from './Popup.js'
 export class ConfirmationPopup extends Popup{
-    constructor(/* {submitCallback},*/ popupSelector){
+    constructor(popupSelector){
         super(popupSelector);
-      //  this._submitCallback = submitCallback;
+      
     }
-
-    
-
     setEventListeners(){
         
         this._element.addEventListener('submit', (e) => {
